@@ -1,45 +1,80 @@
 'use strict'
 
 document.addEventListener('DOMContentLoaded', () => {
-	// Найти элементы
-	const btnUploadPhoto = document.querySelector('.btn-upload-photo')
-	const firstPage = document.querySelector('.first-page')
-	const secondPage = document.querySelector('.second-page')
-	const uploadPhoto = document.querySelector('.upload-photo')
+	const btnUploadPhoto = document.querySelector('.btnUploadPhoto')
+	const firstPage = document.querySelector('.firstPage')
+	const secondPage = document.querySelector('.secondPage')
+	const uploadPhoto = document.querySelector('.uploadPhoto')
+	const profile = document.querySelector('.account')
+	const close = document.querySelector('.close')
+	const signPage = document.querySelector('.signPage')
+	const signIn = document.querySelector('.signIn')
+	const signUp = document.querySelector('.signUp')
+	const formSignIn = document.querySelector('.formSignIn')
+	const formSignUp = document.querySelector('.formSignUp')
 
-	// Добавить обработчик события для кнопки загрузки фото
+	profile.addEventListener('click', event => {
+		event.preventDefault()
+
+		firstPage.style.display = 'none'
+		secondPage.style.display = 'none'
+		profile.style.display = 'none'
+		close.style.display = 'block'
+		signPage.style.display = 'flex'
+	})
+
+	close.addEventListener('click', event => {
+		event.preventDefault()
+
+		firstPage.style.display = 'flex'
+		profile.style.display = 'block'
+		close.style.display = 'none'
+		signPage.style.display = 'none'
+	})
+
+	signUp.addEventListener('click', event => {
+		event.preventDefault()
+
+		signIn.style.background = 'rgba(255, 255, 255, 0)'
+		signUp.style.background = 'rgba(255, 255, 255, 1)'
+		formSignIn.style.display = 'none'
+		formSignUp.style.display = 'block'
+	})
+
+	signIn.addEventListener('click', event => {
+		event.preventDefault()
+
+		signIn.style.background = 'rgba(255, 255, 255, 1)'
+		signUp.style.background = 'rgba(255, 255, 255, 0)'
+		formSignIn.style.display = 'block'
+		formSignUp.style.display = 'none'
+	})
+
 	btnUploadPhoto.addEventListener('click', event => {
 		event.preventDefault()
 
-		// Создать элемент input для загрузки файлов
 		const fileInput = document.createElement('input')
 		fileInput.type = 'file'
-		fileInput.accept = 'image/*' // Только изображения
+		fileInput.accept = 'image/*'
 
-		// Обработчик выбора файла
 		fileInput.addEventListener('change', () => {
 			const file = fileInput.files[0]
 			if (file) {
 				const reader = new FileReader()
 
-				// Обработчик завершения чтения файла
 				reader.onload = e => {
-					// Установить загруженное изображение как фон для .upload-photo
 					uploadPhoto.style.backgroundImage = `url('${e.target.result}')`
 					uploadPhoto.style.backgroundSize = 'cover'
 					uploadPhoto.style.backgroundPosition = 'center'
 
-					// Скрыть первую страницу и показать вторую
 					firstPage.style.display = 'none'
 					secondPage.style.display = 'flex'
 				}
 
-				// Прочитать файл как Data URL
 				reader.readAsDataURL(file)
 			}
 		})
 
-		// Открыть диалог выбора файла
 		fileInput.click()
 	})
 })

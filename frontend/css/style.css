@@ -3,14 +3,126 @@ body {
 	background-size: cover;
 }
 
-.first-page {
+.account {
+	background: url(../image/icons8-person-50.png) no-repeat;
+	height: 60px;
+	width: 60px;
+	background-size: cover;
+	float: right;
+	margin-top: 20px;
+	margin-right: 20px;
+	border-radius: 40%;
+	border: none;
+	cursor: pointer;
+}
+
+.close {
+	background: url(../image/icons8-close-48.png) no-repeat;
+	height: 60px;
+	width: 60px;
+	float: right;
+	margin-top: 20px;
+	margin-right: 20px;
+	display: none;
+	border: initial;
+	cursor: pointer;
+}
+
+.signButtons {
+	display: flex;
+	justify-content: center;
+}
+
+.signPage {
+	display: none;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.signIn {
+	margin-top: 100px;
+	margin-right: 50px;
+	border: initial;
+	width: 190px;
+	height: 40px;
+	border-radius: 15px;
+	font-size: 22px;
+	border: 2px solid #000;
+	background-color: rgba(255, 255, 255, 1);
+	cursor: pointer;
+}
+
+.signUp {
+	margin-top: 100px;
+	border: initial;
+	width: 190px;
+	height: 40px;
+	border-radius: 15px;
+	font-size: 22px;
+	border: 2px solid #000;
+	background-color: rgba(255, 255, 255, 0);
+	cursor: pointer;
+}
+
+.formSignIn {
+	padding-top: 50px;
+	margin-top: 70px;
+	height: 400px;
+	width: 600px;
+	border-radius: 15px;
+	background: white;
+	text-align: center;
+	border: 2px solid #000;
+}
+.formSignUp {
+	padding-top: 50px;
+	margin-top: 70px;
+	height: 400px;
+	width: 600px;
+	border-radius: 15px;
+	background: white;
+	text-align: center;
+	border: 2px solid #000;
+	display: none;
+}
+
+.title-third {
+	font-size: 32px;
+	font-weight: 800;
+	font-family: Roboto;
+}
+
+.form__input {
+	margin-bottom: 30px;
+	width: 80%;
+	height: 40px;
+	border-radius: 10px;
+	padding-left: 30px;
+	font-size: 20px;
+}
+
+.btn {
+	background: white;
+	padding: 10px 20px;
+	font-size: 22px;
+	border-radius: 32px;
+	border: 2px solid #000;
+	text-decoration: none;
+	font-weight: 800;
+	font-family: Roboto;
+
+	color: #000;
+}
+
+.firstPage {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 95vh;
 }
 
-.light-circle {
+.lightCircle {
 	height: 600px;
 	width: 600px;
 	border-radius: 50%;
@@ -29,7 +141,7 @@ body {
 	margin-top: 10%;
 }
 
-.btn-upload-photo {
+.btnUploadPhoto {
 	background: white;
 	padding: 15px 25px;
 	font-size: 26px;
@@ -44,14 +156,14 @@ body {
 	color: #000;
 }
 
-.second-page {
+.secondPage {
 	display: none;
 	flex-direction: column;
 	align-items: center;
 	height: 95vh;
 }
 
-.upload-photo {
+.uploadPhoto {
 	width: 150px;
 	height: 150px;
 	background: white;
@@ -60,7 +172,7 @@ body {
 	margin-bottom: 30px;
 }
 
-.name-disease {
+.nameDisease {
 	width: 40vw;
 	height: 50px;
 	background: white;
@@ -68,7 +180,7 @@ body {
 	margin-bottom: 30px;
 }
 
-.description-disease {
+.descriptionDisease {
 	width: 40vw;
 	height: 50%;
 	background: white;
