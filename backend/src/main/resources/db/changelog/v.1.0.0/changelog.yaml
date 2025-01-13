@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: "001_task.yaml"
+      relativeToChangelogFile: true
+  - include:
+      file: "002_task.yaml"
+      relativeToChangelogFile: true

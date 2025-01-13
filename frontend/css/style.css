@@ -1,10 +1,13 @@
 body {
 	background: url(../image/1.jpg) no-repeat;
 	background-size: cover;
-	height: 95vh;
+}
+
+.first-page {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	height: 95vh;
 }
 
 .light-circle {
@@ -18,15 +21,15 @@ body {
 }
 
 .glass {
-	height: 500px;
-	width: 500px;
+	height: 520px;
+	width: 520px;
 	background: url(../image/2.png);
 	background-size: cover;
 	position: relative;
 	margin-top: 10%;
 }
 
-.upload-photo {
+.btn-upload-photo {
 	background: white;
 	padding: 15px 25px;
 	font-size: 26px;
@@ -39,4 +42,35 @@ body {
 	top: 150px;
 	left: 70px;
 	color: #000;
+}
+
+.second-page {
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	height: 95vh;
+}
+
+.upload-photo {
+	width: 150px;
+	height: 150px;
+	background: white;
+	border-radius: 15px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.name-disease {
+	width: 40vw;
+	height: 50px;
+	background: white;
+	border-radius: 15px;
+	margin-bottom: 30px;
+}
+
+.description-disease {
+	width: 40vw;
+	height: 50%;
+	background: white;
+	border-radius: 15px;
 }

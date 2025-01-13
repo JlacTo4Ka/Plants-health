@@ -1,0 +1,147 @@
+openapi: 3.0.0
+info:
+  title: Plants API
+  description: Plants API
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /api/v1/plants/disease:
+    post:
+      summary:  return diseases with description
+      operationId: resolveDisease
+      description: plant diseases
+      tags:
+        - Diseases
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              nullable: false
+              properties:
+                img:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Diseases object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiseaseResponseDTO'
+  /api/v1/plants/history:
+    get:
+      summary:  return history
+      operationId: getHistory
+      description: get history
+      tags:
+        - Diseases
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoryResponseDTO'
+  /api/v1/auth/signup:
+    post:
+      summary: signup new user
+      operationId: signUp
+      description: signup new user
+      tags:
+        - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenDTO'
+  /api/v1/auth/signin:
+    post:
+      summary: signin
+      operationId: signIn
+      description: signin
+      tags:
+        - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenDTO'
+components:
+  schemas:
+    DiseaseResponseDTO:
+      type: object
+      required:
+        - disease
+      properties:
+        disease:
+          type: string
+        description:
+          type: string
+          nullable: true
+    ErrorPayloadDTO:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: string
+    UserDTO:
+      type: object
+      required:
+        - login
+        - password
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+    TokenDTO:
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+    HistoryResponseDTO:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoryItemDTO'
+    HistoryItemDTO:
+      type: object
+      required:
+        - disease
+      properties:
+        disease:
+          type: string
+        imageUrl:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
