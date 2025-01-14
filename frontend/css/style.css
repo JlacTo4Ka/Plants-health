@@ -75,6 +75,7 @@ body {
 	text-align: center;
 	border: 2px solid #000;
 }
+
 .formSignUp {
 	padding-top: 50px;
 	margin-top: 70px;
@@ -112,7 +113,6 @@ body {
 	font-weight: 800;
 	font-family: Roboto;
 	cursor: pointer;
-
 	color: #000;
 }
 
@@ -171,6 +171,8 @@ body {
 	border-radius: 15px;
 	margin-top: 30px;
 	margin-bottom: 30px;
+	background-position: center;
+	background-size: cover;
 }
 
 .nameDisease {
@@ -179,6 +181,12 @@ body {
 	background: white;
 	border-radius: 15px;
 	margin-bottom: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+	font-size: 20px;
+	text-align: center;
 }
 
 .descriptionDisease {
@@ -186,4 +194,40 @@ body {
 	height: 50%;
 	background: white;
 	border-radius: 15px;
+	padding: 15px;
+	font-size: 16px;
+	overflow-y: auto;
+}
+
+.listDieses {
+	display: none;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: 20px auto;
+	width: 80%;
+}
+
+.disease-card {
+	width: 300px;
+	border: 2px solid #000;
+	border-radius: 15px;
+	background-color: rgba(255, 255, 255, 0.9);
+	margin: 10px;
+	padding: 10px;
+	text-align: center;
+}
+.disease-card img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 15px;
+}
+.disease-card h4 {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	font-size: 18px;
+	font-weight: 800;
+}
+.disease-card p {
+	margin: 0;
+	font-size: 14px;
 }
