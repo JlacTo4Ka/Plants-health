@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const listDieses = document.querySelector('.listDieses')
 	const btnUploadPhoto = document.querySelector('.btnUploadPhoto')
 
+	// Универсальная функция для JSON-запросов (регистрация/логин)
 	async function sendRequestJSON(url, method, body, token) {
 		const headers = { 'Content-Type': 'application/json' }
 		if (token) {
@@ -48,10 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		return await response.json()
 	}
 
+	// Получение истории болезней (GET /api/v1/plants/history)
 	async function fetchDiseasesHistory() {
 		const token = localStorage.getItem('token')
 		if (!token) {
-			alert('Токен отсутствует. Сначала авторизуйтесь.')
+			// Если нужно, чтобы неавторизованным не показывалось вовсе,
+			// можно вернуть alert или пустую историю.
+			alert('Нет токена — история недоступна.')
 			return
 		}
 
@@ -61,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				{
 					method: 'GET',
 					headers: {
-						Authorization: `Bearer ${token}`,
+						Authorization: token,
 					},
 				}
 			)
@@ -75,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (data && data.items) {
 				renderDiseases(data.items)
 			} else {
-				listDieses.innerHTML = 'Нет данных в истории'
+				listDieses.innerHTML = 'Нет данных в истории.'
 			}
 		} catch (error) {
 			console.error(error)
@@ -83,31 +87,31 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 
+	// Отрисовать историю болезней
 	function renderDiseases(diseases) {
-		listDieses.innerHTML = ''
+		listDieses.innerHTML = '' // очистка
 
 		diseases.forEach(item => {
 			const card = document.createElement('div')
 			card.classList.add('disease-card')
 
+			// Картинка болезни (если есть imageUrl)
 			if (item.imageUrl) {
 				const img = document.createElement('img')
 				img.src = item.imageUrl
 				card.appendChild(img)
 			}
 
+			// Название болезни
 			const title = document.createElement('h4')
 			title.textContent = item.disease ?? 'Неизвестная болезнь'
 			card.appendChild(title)
-
-			const desc = document.createElement('p')
-			desc.textContent = item.description ?? 'Описание отсутствует'
-			card.appendChild(desc)
 
 			listDieses.appendChild(card)
 		})
 	}
 
+	// ====== Регистрация (POST /api/v1/auth/signup)
 	btnSignUp.addEventListener('click', async event => {
 		event.preventDefault()
 
@@ -127,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			)
 			localStorage.setItem('token', data.token)
 			alert('Регистрация успешна!')
+			// Закрываем форму, возвращаемся на firstPage
 			signPage.style.display = 'none'
 			firstPage.style.display = 'flex'
 			profile.style.display = 'block'
@@ -136,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	})
 
+	// ====== Авторизация (POST /api/v1/auth/signin)
 	btnSignIn.addEventListener('click', async event => {
 		event.preventDefault()
 
@@ -155,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			)
 			localStorage.setItem('token', data.token)
 			alert('Вход выполнен успешно!')
+			// Закрываем форму, возвращаемся на firstPage
 			signPage.style.display = 'none'
 			firstPage.style.display = 'flex'
 			profile.style.display = 'block'
@@ -164,29 +171,36 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	})
 
+	// Нажатие на кнопку account
 	profile.addEventListener('click', async event => {
 		event.preventDefault()
 
+		// Проверяем, есть ли токен
 		const token = localStorage.getItem('token')
 		if (!token) {
+			// Нет токена -> показываем форму входа/регистрации
 			firstPage.style.display = 'none'
 			secondPage.style.display = 'none'
 			profile.style.display = 'none'
 			close.style.display = 'block'
 			signPage.style.display = 'flex'
 		} else {
+			// Есть токен -> показываем историю
 			firstPage.style.display = 'none'
 			secondPage.style.display = 'none'
 			signPage.style.display = 'none'
 			close.style.display = 'block'
-			profile.style.display = 'block'
-			listDieses.style.display = 'flex'
+			profile.style.display = 'none'
+			listDieses.style.display = 'flex' // показать блок
+			// Загружаем и рендерим
 			await fetchDiseasesHistory()
 		}
 	})
 
+	// Кнопка закрытия (крестик)
 	close.addEventListener('click', event => {
 		event.preventDefault()
+		// Возвращаемся на первую страницу
 		firstPage.style.display = 'flex'
 		secondPage.style.display = 'none'
 		profile.style.display = 'block'
@@ -195,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		listDieses.style.display = 'none'
 	})
 
+	// Переключение между табами "Sign In" и "Sign Up"
 	signUp.addEventListener('click', event => {
 		event.preventDefault()
 		signIn.style.background = 'rgba(255, 255, 255, 0)'
@@ -211,15 +226,14 @@ document.addEventListener('DOMContentLoaded', () => {
 		formSignUp.style.display = 'none'
 	})
 
+	// Загрузка фото => POST /api/v1/plants/disease
 	btnUploadPhoto.addEventListener('click', async event => {
 		event.preventDefault()
 
+		// Пытаемся взять токен (может быть null)
 		const token = localStorage.getItem('token')
-		if (!token) {
-			alert('Сначала нужно авторизоваться!')
-			return
-		}
 
+		// Создаём <input type="file" accept="image/*">
 		const fileInput = document.createElement('input')
 		fileInput.type = 'file'
 		fileInput.accept = 'image/*'
@@ -227,6 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		fileInput.addEventListener('change', async () => {
 			const file = fileInput.files[0]
 			if (file) {
+				// Отображаем локально загруженную картинку
 				const reader = new FileReader()
 				reader.onload = e => {
 					uploadPhotoDiv.style.backgroundImage = `url('${e.target.result}')`
@@ -234,18 +249,26 @@ document.addEventListener('DOMContentLoaded', () => {
 				reader.readAsDataURL(file)
 
 				try {
+					// multipart/form-data
 					const formData = new FormData()
-					formData.append('img', file)
+					formData.append('img', file) // key: "img" (см. Swagger)
+
+					// Готовим fetch
+					const fetchOptions = {
+						method: 'POST',
+						body: formData,
+					}
+
+					// Если есть токен – добавим заголовок Authorization
+					if (token) {
+						fetchOptions.headers = {
+							Authorization: token,
+						}
+					}
 
 					const response = await fetch(
 						'http://62.233.43.155:8080/api/v1/plants/disease',
-						{
-							method: 'POST',
-							headers: {
-								Authorization: `Bearer ${token}`,
-							},
-							body: formData,
-						}
+						fetchOptions
 					)
 
 					if (!response.ok) {
@@ -253,14 +276,19 @@ document.addEventListener('DOMContentLoaded', () => {
 						throw new Error(errText)
 					}
 
+					// Ответ: { "disease": "...", "description": "..." }
 					const data = await response.json()
 
 					firstPage.style.display = 'none'
 					secondPage.style.display = 'flex'
 
 					nameDiseaseDiv.textContent = data.disease ?? 'Неизвестная болезнь'
-					descriptionDiseaseDiv.textContent =
-						data.description ?? 'Описание отсутствует'
+					if (data.description) {
+						const htmlDescription = marked.parse(data.description)
+						descriptionDiseaseDiv.innerHTML = htmlDescription
+					} else {
+						descriptionDiseaseDiv.textContent = 'Описание отсутствует'
+					}
 				} catch (err) {
 					console.error(err)
 					alert(`Ошибка при распознавании болезни: ${err.message}`)

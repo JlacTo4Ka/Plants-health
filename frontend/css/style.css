@@ -187,6 +187,7 @@ body {
 	font-weight: 600;
 	font-size: 20px;
 	text-align: center;
+	font-family: Roboto;
 }
 
 .descriptionDisease {
@@ -197,6 +198,8 @@ body {
 	padding: 15px;
 	font-size: 16px;
 	overflow-y: auto;
+	font-family: Roboto;
+	padding: 30px;
 }
 
 .listDieses {
@@ -204,11 +207,11 @@ body {
 	flex-wrap: wrap;
 	justify-content: center;
 	margin: 20px auto;
-	width: 80%;
+	width: 70%;
 }
 
 .disease-card {
-	width: 300px;
+	width: 250px;
 	border: 2px solid #000;
 	border-radius: 15px;
 	background-color: rgba(255, 255, 255, 0.9);
