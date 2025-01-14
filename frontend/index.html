@@ -11,17 +11,77 @@
 		<link rel="stylesheet" href="css/style.css" />
 	</head>
 	<body>
-		<div class="first-page">
-			<div class="light-circle">
+		<button class="account"></button>
+		<button class="close"></button>
+
+		<div class="signPage">
+			<div class="signButtons">
+				<button class="signIn">Sign In</button>
+				<button class="signUp">Sign Up</button>
+			</div>
+			<div class="formSignIn">
+				<form action="#" class="form">
+					<h3 class="title-third">ВХОД</h3>
+
+					<div class="form__group">
+						<input
+							type="text"
+							class="form__input"
+							placeholder="Логин"
+							id="login"
+						/>
+					</div>
+					<div class="form__group">
+						<input
+							type="text"
+							class="form__input"
+							placeholder="Пароль"
+							id="password"
+						/>
+					</div>
+					<div class="form__group form__group_btn">
+						<button class="btn">Войти</button>
+					</div>
+				</form>
+			</div>
+			<div class="formSignUp">
+				<form action="#" class="form">
+					<h3 class="title-third">РЕГИСТРАЦИЯ</h3>
+
+					<div class="form__group">
+						<input
+							type="text"
+							class="form__input"
+							placeholder="Логин"
+							id="login"
+						/>
+					</div>
+					<div class="form__group">
+						<input
+							type="text"
+							class="form__input"
+							placeholder="Пароль"
+							id="password"
+						/>
+					</div>
+					<div class="form__group form__group_btn">
+						<button class="btn">Зарегистрироваться</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="accountPage"></div>
+		<div class="firstPage">
+			<div class="lightCircle">
 				<div class="glass">
-					<a href="" class="btn-upload-photo">Загрузить фото</a>
+					<a href="" class="btnUploadPhoto">Загрузить фото</a>
 				</div>
 			</div>
 		</div>
-		<div class="second-page">
-			<div class="upload-photo"></div>
-			<div class="name-disease"></div>
-			<div class="description-disease"></div>
+		<div class="secondPage">
+			<div class="uploadPhoto"></div>
+			<div class="nameDisease"></div>
+			<div class="descriptionDisease"></div>
 		</div>
 	</body>
 	<script src="js/script.js"></script>
