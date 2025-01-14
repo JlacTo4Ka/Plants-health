@@ -111,6 +111,7 @@ body {
 	text-decoration: none;
 	font-weight: 800;
 	font-family: Roboto;
+	cursor: pointer;
 
 	color: #000;
 }

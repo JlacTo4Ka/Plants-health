@@ -12,6 +12,84 @@ document.addEventListener('DOMContentLoaded', () => {
 	const signUp = document.querySelector('.signUp')
 	const formSignIn = document.querySelector('.formSignIn')
 	const formSignUp = document.querySelector('.formSignUp')
+	const btnSignIn = document.querySelector('.formSignIn .btn')
+	const btnSignUp = document.querySelector('.formSignUp .btn')
+	const loginInputSignIn = document.querySelector('.formSignIn #login')
+	const passwordInputSignIn = document.querySelector('.formSignIn #password')
+	const loginInputSignUp = document.querySelector('.formSignUp #login')
+	const passwordInputSignUp = document.querySelector('.formSignUp #password')
+
+	async function sendRequest(url, method, body) {
+		const response = await fetch(url, {
+			method: method,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(body),
+		})
+
+		if (!response.ok) {
+			const errorMessage = await response.text()
+			throw new Error(errorMessage)
+		}
+
+		return await response.json()
+	}
+
+	// Регистрация
+	btnSignUp.addEventListener('click', async event => {
+		event.preventDefault()
+
+		const login = loginInputSignUp.value.trim()
+		const password = passwordInputSignUp.value.trim()
+
+		if (!login || !password) {
+			alert('Введите логин и пароль')
+			return
+		}
+
+		try {
+			const data = await sendRequest(
+				'http://62.233.43.155:8080/api/v1/auth/signup',
+				'POST',
+				{ login, password }
+			)
+			localStorage.setItem('token', data.token)
+			alert('Регистрация успешна!')
+			// Перенаправление или другие действия
+		} catch (error) {
+			alert(`Ошибка регистрации: ${error.message}`)
+		}
+	})
+
+	// Авторизация
+	btnSignIn.addEventListener('click', async event => {
+		event.preventDefault()
+
+		const login = loginInputSignIn.value.trim()
+		const password = passwordInputSignIn.value.trim()
+
+		if (!login || !password) {
+			alert('Введите логин и пароль')
+			return
+		}
+
+		try {
+			const data = await sendRequest(
+				'http://62.233.43.155:8080/api/v1/auth/signin',
+				'POST',
+				{
+					login,
+					password,
+				}
+			)
+			localStorage.setItem('token', data.token)
+			alert('Вход выполнен успешно!')
+			// Перенаправление или другие действия
+		} catch (error) {
+			alert(`Ошибка авторизации: ${error.message}`)
+		}
+	})
 
 	profile.addEventListener('click', event => {
 		event.preventDefault()
