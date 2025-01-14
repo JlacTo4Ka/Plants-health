@@ -9,9 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 @FeignClient(value = "mlFeignClient")
 public interface MLFeignClient {
 
-    @PostMapping(value = "/api/v1/ml/disease/identify",
+    @PostMapping(value = "/predict",
             produces = "application/json",
-            consumes = "img/form-data"
+            consumes = "multipart/form-data"
     )
     MLDiseaseResponseDTO identifyDiseaseByImage(@RequestBody MultipartFile multipartFile);
 }

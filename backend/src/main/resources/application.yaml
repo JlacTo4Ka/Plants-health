@@ -13,7 +13,7 @@ spring:
       client:
         config:
           mlFeignClient:
-            url: http://localhost:3123
+            url: "${ML_URL:localhost:8000}"
             connectTimeout: 100
             readTimeout: 30000
             loggerLevel: full
@@ -81,3 +81,6 @@ s3:
   bucketName: "${S3_BUCKET_NAME:planet-health-image}"
   accessKey: "${S3_SECRET_KEY}"
   keyId: "${S3_KEY_ID}"
+
+ml-plants:
+  mock: ${ML_IS_MOCK:true}

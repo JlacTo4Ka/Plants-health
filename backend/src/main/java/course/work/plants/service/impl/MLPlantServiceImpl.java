@@ -1,6 +1,7 @@
 package course.work.plants.service.impl;
 
 import course.work.plants.config.client.MLFeignClient;
+import course.work.plants.config.properties.MLFeignProperties;
 import course.work.plants.dto.ml.MLDiseaseResponseDTO;
 import course.work.plants.exception.BaseException;
 import course.work.plants.exception.ErrorCodeEnum;
@@ -19,11 +20,11 @@ import java.util.Optional;
 public class MLPlantServiceImpl implements MLPlantService {
 
     private final MLFeignClient mlFeignClient;
-    private static final boolean IS_MOCK = true;
+    private final MLFeignProperties properties;
 
     @Override
     public String identifyDisease(MultipartFile multipartFile) {
-        if (IS_MOCK) {
+        if (properties.isMock()) {
             return "Cercospora";
         }
         Optional<MLDiseaseResponseDTO> oDisease = Optional.empty();

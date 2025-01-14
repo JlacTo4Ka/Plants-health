@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  java-service:
+    image: plant-health.cr.cloud.ru/backend
+    container_name: java-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - python-service
+      - postgres-db
+    environment:
+      DB_URL: ${DB_URL}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      S3_SECRET_KEY: ${S3_SECRET_KEY}
+      S3_KEY_ID: ${S3_KEY_ID}
+      YANDEX_ACCESS_TOKEN: ${YANDEX_ACCESS_TOKEN}
+      YANDEX_FOLDER_ID: ${YANDEX_FOLDER_ID}
+      ML_URL: ${ML_URL}
+    networks:
+      - app-network
+
+  python-service:
+    image: plant-health.cr.cloud.ru/ml
+    container_name: python-service
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+
+  postgres-db:
+    image: postgres:15
+    container_name: postgres-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: plants_health
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  postgres-data:
+
+networks:
+  app-network:
+    driver: bridge
