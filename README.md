@@ -32,6 +32,12 @@ git@github.com:JlacTo4Ka/Plants-health.git
 2. 
 
 ```
+docker pull plants-health.cr.cloud.ru/ml(backend, front)
+```
+
+3. 
+
+```
 docker-compose --env-file .env -d up
 ```
 
