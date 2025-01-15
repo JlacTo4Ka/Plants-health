@@ -104,6 +104,7 @@ model.to(device)
 model.eval()
 
 transform = transforms.Compose([
+    transforms.Resize((256, 256)),
     transforms.ToTensor()
 ])
 
