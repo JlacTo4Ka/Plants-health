@@ -2,7 +2,7 @@
 
 ## Ссылка на презентацию проекта
 
-[Презентация проекта](Prezentation.pdf)
+[Презентация проекта](Prezentation.pptx)
 
 ## Участники проекта и их обязанности
 
@@ -30,6 +30,10 @@ git@github.com:JlacTo4Ka/Plants-health.git
 ```
 
 2. 
+
+```
+docker-compose --env-file .env -d up
+```
 
 ## Цели проекта
 
